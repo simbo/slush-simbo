@@ -3,7 +3,7 @@
  * ===================
  * https://github.com/simbo/slush-simbo-project
  *
- * Simon Lepel <simbo@simbo.de>
+ * Copyright © 2015 Simon Lepel <simbo@simbo.de>
  * Licensed under the MIT license.
  */
 
