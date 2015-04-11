@@ -29,7 +29,7 @@ var cwd = process.cwd(),
     templates = path.join(pkgDir, 'templates'),
     savedDataFile = path.join(home, '.' + pkgJson.name),
     savedDataFileExists = fs.existsSync(savedDataFile),
-    savedData = savedDataFileExists ? ini.parse(fs.readFileSync(savedDataFile, 'utf-8')) : {};
+    savedData = savedDataFileExists ? ini.parse(fs.readFileSync(savedDataFile, 'utf-8')) : { author: {} };
 
 
 // auto-require plugins
