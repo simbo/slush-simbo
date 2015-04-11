@@ -1,7 +1,7 @@
 {
-  "name": "slush-simbo-project",
+  "name": "slush-simbo-basic",
   "version": "0.1.0",
-  "description": "A slush project generator.",
+  "description": "A slush basic project generator.",
   "author": "Simon Lepel <simbo@simbo.de> (http://simbo.ninja)",
   "keywords": [
     "slushgenerator"
@@ -12,10 +12,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/simbo/slush-simbo-generator.git"
+    "url": "git://github.com/simbo/slush-simbo-basic.git"
   },
   "bugs": {
-    "url": "https://github.com/simbo/slush-simbo-generator/issues"
+    "url": "https://github.com/simbo/slush-simbo-basic/issues"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
