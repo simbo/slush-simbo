@@ -1,0 +1,16 @@
+{
+  "name": "<%= project.name %>",
+  "version": "<%= project.version %>",
+  "description": "<%= project.description %>",
+  "author": "<%= author.name %><% if (author.email!=='') { %> <<%= author.email %>><% } %><% if (author.url!=='') { %> (<%= author.url %>)<% } %>",
+  "keywords": [],
+  "license": {
+    "type": "<%= license.type %>"<% if (license.url!=='') { %>,
+    "url": "<%= license.url %>"<% } %>
+  },
+  "private": true,
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ]
+}

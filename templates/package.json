@@ -1,0 +1,23 @@
+{
+  "name": "<%= project.name %>",
+  "version": "<%= project.version %>",
+  "description": "<%= project.description %>",
+  "author": "<%= author.name %><% if (author.email!=='') { %> <<%= author.email %>><% } %><% if (author.url!=='') { %> (<%= author.url %>)<% } %>",
+  "keywords": [],
+  "license": {
+    "type": "<%= license.type %>"<% if (license.url!=='') { %>,
+    "url": "<%= license.url %>"<% } %>
+  },
+  "private": true,
+  <% if (repository.url!=='') { %>"repository": {
+    "type": "git",
+    "url": "<%= repository.url %>"
+  },
+  <% } %><% if (bugs.url!=='') { %>"bugs": {
+    "url": "<%= bugs.url %>"
+  },
+  <% } %>"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": ""
+}
