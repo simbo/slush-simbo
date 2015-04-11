@@ -1,0 +1,35 @@
+{
+  "name": "slush-simbo-project",
+  "version": "0.1.0",
+  "description": "A slush project generator.",
+  "author": "Simon Lepel <simbo@simbo.de> (http://simbo.ninja)",
+  "keywords": [
+    "slushgenerator"
+  ],
+  "license": {
+    "type": "MIT",
+    "url": "http://simbo.mit-license.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/simbo/slush-simbo-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/simbo/slush-simbo-generator/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": "Slushfile.js",
+  "dependencies": {
+    "auto-plug": "^1.0.1",
+    "chalk": "^1.0.0",
+    "gulp": "^3.8.11",
+    "gulp-conflict": "^0.3.0",
+    "gulp-install": "^0.4.0",
+    "gulp-template": "^3.0.0",
+    "ini": "^1.3.3",
+    "inquirer": "^0.8.2",
+    "minimist": "^1.1.1"
+  }
+}
