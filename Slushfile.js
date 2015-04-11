@@ -131,17 +131,7 @@ var autoPlug = require('auto-plug'),
         name: 'licenseUrl',
         message: 'What is the url for license information?',
         default: function (answers) {
-            switch(answers.license.toLowerCase()) {
-                case 'mit':
-                    return 'http://' + defaultOptions.author.githubUser + '.mit-license.org/';
-                case 'gpl':
-                case 'gpl3':
-                    return 'https://www.gnu.org/licenses/gpl-3.0.txt';
-                case 'gpl2':
-                    return 'https://www.gnu.org/licenses/gpl-2.0.txt';
-                default:
-                    return '';
-            }
+            return getLicenseUrl(answers.license.toLowerCase());
         }
     }, {
         name: 'repository',
