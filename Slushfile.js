@@ -61,6 +61,7 @@ var defaultOptions = (function () {
                 version: '0.1.0'
             },
             options: {
+                supportTravis: true,
                 runInstall: false
             }
         };
@@ -169,6 +170,11 @@ var prompts = [{
         }
     }, {
         type: 'confirm',
+        name: 'supportTravis',
+        message: 'Do you want to add Travis CI support?',
+        default: defaultOptions.options.supportTravis
+    }, {
+        type: 'confirm',
         name: 'runInstall',
         message: 'Do you want to install npm and bower packages after scaffolding?',
         default: defaultOptions.options.runInstall
@@ -230,6 +236,7 @@ function parseAnswers (answers) {
             year: new Date().getFullYear()
         },
         options: {
+            supportTravis: answers.supportTravis,
             runInstall: answers.runInstall
         }
     };
@@ -237,7 +244,10 @@ function parseAnswers (answers) {
 
 
 function scaffold (data, done) {
-    gulp.src(templates + '/**/*', {dot: true})
+    gulp.src([
+            templates + '/**/*',
+            ( data.options.supportTravis ? '' : '!' + templates + '/.travis.yml' )
+        ], {dot: true})
         .pipe(g.template(data))
         .pipe(g.conflict(cwd + '/'))
         .pipe(gulp.dest(cwd + '/'))
@@ -265,6 +275,7 @@ gulp.task('default', function (done) {
                 licenseUrl: getLicenseUrl(defaultOptions.project.license),
                 repository: getGithubRepositoryUrl(defaultOptions.author.githubUser, defaultOptions.project.name),
                 bugs: getGithubIssuesUrl(defaultOptions.author.githubUser, defaultOptions.project.name),
+                supportTravis: defaultOptions.options.supportTravis,
                 runInstall: defaultOptions.options.runInstall
             });
         scaffold(data, done);
