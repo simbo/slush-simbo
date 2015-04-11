@@ -1,3 +1,11 @@
 language: node_js
 node_js:
 - '0.12'
+deploy:
+  provider: npm
+  email: simbo@simbo.de
+  api_key:
+    secure: D7zgig5A0lDf9fhKIUmCfZJfTMIEKgZzYKpRFz3MPDplPnl3JnDbSx8e4zXQKEEAeZUUhZD3FfTlNSQR6TfJOIC7WaQ9l1r/nJ1Cs262JzqNbMl7PjVzgoMUg7vV5aKEYYJbcgm5cnKvBJnrXO7az8a2bU8M2jNs/DOOSU3fwhE=
+  on:
+    tags: true
+    repo: simbo/slush-simbo-basic
