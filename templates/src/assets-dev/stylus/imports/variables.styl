@@ -1,0 +1,82 @@
+/**
+ * + Typo
+ * =====================================================================
+ */
+
+font-family = {
+    sans-serif: Frutiger\, "Frutiger Linotype"\, Univers\, Calibri\, "Gill Sans"\, "Gill Sans MT"\, "Myriad Pro"\, Myriad\, "DejaVu Sans Condensed"\, "Liberation Sans"\, "Nimbus Sans L"\, Tahoma\, Geneva\, "Helvetica Neue"\, Helvetica\, Arial\, sans-serif,
+    monospace: Menlo\, Consolas\, Monaco\, Lucida Console\, Liberation Mono\, DejaVu Sans Mono\, Bitstream Vera Sans Mono\, Courier New\, monospace\, serif
+}
+
+line-height = {
+    normal: (20 / 14),
+    small: (20 / 14 * .85),
+    large: (20 / 14 * 1.25)
+}
+
+/* = Typo */
+
+
+/**
+ * + Mediaquery breakpoints
+ * =====================================================================
+ */
+
+breakpoints = {
+    xs: {
+        min: 0,
+        max: 479px
+    },
+    xsl: {
+        min: 480px,
+        max: 767px
+    },
+    sm: {
+        min: 768px,
+        max: 991px
+    },
+    md: {
+        min: 992px,
+        max: 1199px
+    },
+    lg: {
+        min: 1200px,
+        max: 1599px
+    },
+    xl: {
+        min: 1600px,
+        max: 0
+    }
+}
+
+/* = Mediaquery breakpoints */
+
+
+/**
+ * + Responsive helpers
+ * =====================================================================
+ */
+
+responsive-visibility__placeholders_only = true
+
+/* = Responsive helpers */
+
+
+/**
+ * + Grid config
+ * =====================================================================
+ */
+
+grid-breakpoints = {}
+
+for key, value in breakpoints
+    grid-breakpoints[key] = value.min
+
+grid-config = {
+    placeholders-only: true,
+    column-count: 12,
+    gutter-width: 30px,
+    breakpoints: grid-breakpoints
+}
+
+/* = Grid config */
