@@ -181,7 +181,7 @@ function getLicenseUrl (license) {
     }
 }
 
-function getData (answers) {
+function parseAnswers (answers) {
     return {
         project: {
             name: answers.projectName,
@@ -222,7 +222,7 @@ function scaffold (data, done) {
 
 gulp.task('default', function (done) {
     if (params.silent) {
-        var data = getData({
+        var data = parseAnswers({
                 authorName: defaultOptions.author.name,
                 authorEmail: defaultOptions.author.email,
                 authorUrl: defaultOptions.author.url,
@@ -242,7 +242,7 @@ gulp.task('default', function (done) {
             if (!answers.moveon) {
                 return done();
             }
-            var data = getData(answers);
+            var data = parseAnswers(answers);
             if (answers.saveAuthorData) {
                 fs.writeFileSync(savedDataFile, ini.stringify({author: data.author}))
             }
