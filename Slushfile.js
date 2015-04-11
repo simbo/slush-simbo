@@ -50,6 +50,9 @@ var autoPlug = require('auto-plug'),
                 name: path.basename(cwd),
                 license: 'MIT',
                 version: '0.1.0'
+            },
+            options: {
+                runInstall: false
             }
         };
         if (!savedDataFileExists) {
@@ -155,6 +158,11 @@ var autoPlug = require('auto-plug'),
         }
     }, {
         type: 'confirm',
+        name: 'runInstall',
+        message: 'Do you want to install npm and bower packages after scaffolding?',
+        default: defaultOptions.options.runInstall
+    }, {
+        type: 'confirm',
         name: 'moveon',
         message: 'Continue?'
     }];
@@ -205,6 +213,9 @@ function parseAnswers (answers) {
             type: answers.license,
             url: answers.licenseUrl,
             year: new Date().getFullYear()
+        },
+        options: {
+            runInstall: answers.runInstall
         }
     };
 }
@@ -214,7 +225,10 @@ function scaffold (data, done) {
         .pipe(g.template(data))
         .pipe(g.conflict(cwd + '/'))
         .pipe(gulp.dest(cwd + '/'))
-        // .pipe(g.install())
+        .pipe(g.if(
+            data.options.runInstall,
+            g.install({ignoreScripts: true})
+        ))
         .on('end', function () {
             done();
         });
@@ -233,7 +247,8 @@ gulp.task('default', function (done) {
                 license: defaultOptions.project.license,
                 licenseUrl: getLicenseUrl(defaultOptions.project.license),
                 repository: getGithubRepositoryUrl(defaultOptions.author.githubUser, defaultOptions.project.name),
-                bugs: getGithubIssuesUrl(defaultOptions.author.githubUser, defaultOptions.project.name)
+                bugs: getGithubIssuesUrl(defaultOptions.author.githubUser, defaultOptions.project.name),
+                runInstall: defaultOptions.options.runInstall
             });
         scaffold(data, done);
     }
