@@ -117,7 +117,7 @@ var prompts = [{
             return !savedDataFileExists || !answers.useSavedAuthorData;
         },
         name: 'githubUser',
-        message: 'What is the github username?',
+        message: 'What is the GitHub username?',
         default: defaultOptions.author.githubUser
     }, {
         when: function (answers) {
