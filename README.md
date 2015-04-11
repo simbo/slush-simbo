@@ -5,4 +5,4 @@ slush-simbo-project
 [![Dependencies Status](https://img.shields.io/david/simbo/slush-simbo-project.svg?style=flat-square)](https://david-dm.org/simbo/slush-simbo-project)
 [![devDependencies Status](https://img.shields.io/david/dev/simbo/slush-simbo-project.svg?style=flat-square)](https://david-dm.org/simbo/slush-simbo-project#info=devDependencies)
 
-> A slush project scaffolder.
+> A slush project generator.
