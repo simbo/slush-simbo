@@ -6,39 +6,48 @@
  * Copyright © 2015 Simon Lepel <simbo@simbo.de>
  * Licensed under the MIT license.
  */
-
 'use strict';
 
+
+// required modules
 var autoPlug = require('auto-plug'),
-    chalk = require('chalk'),
-    fs = require('fs'),
-    gulp = require('gulp'),
-    ini = require('ini'),
+    chalk    = require('chalk'),
+    fs       = require('fs'),
+    gulp     = require('gulp'),
+    ini      = require('ini'),
     inquirer = require('inquirer'),
     minimist = require('minimist'),
-    path = require('path'),
-    util = require('util'),
+    path     = require('path'),
+    util     = require('util');
 
-    cwd = process.cwd(),
+
+// main variables
+var cwd = process.cwd(),
     pkgDir = __dirname,
     pkgJson = require(path.join(pkgDir, 'package.json')),
     home = process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE,
     templates = path.join(pkgDir, 'templates'),
     savedDataFile = path.join(home, '.' + pkgJson.name),
     savedDataFileExists = fs.existsSync(savedDataFile),
-    savedData = savedDataFileExists ? ini.parse(fs.readFileSync(savedDataFile, 'utf-8')) : {},
+    savedData = savedDataFileExists ? ini.parse(fs.readFileSync(savedDataFile, 'utf-8')) : {};
 
-    g = autoPlug({ prefix: 'gulp', config: pkgJson }),
 
-    params = (function () {
+// auto-require plugins
+var g = autoPlug({ prefix: 'gulp', config: pkgJson });
+
+
+// cli params
+var params = (function () {
         var cliParams = minimist(process.argv.slice(3)),
             params = {
                 silent: cliParams.silent===true || cliParams.s===true || cliParams.S===true || false
             };
         return params;
-    })(),
+    })();
 
-    defaultOptions = (function () {
+
+// default options
+var defaultOptions = (function () {
         var options = {
             author: {
                 name: savedData.author.name || path.basename(home),
@@ -64,9 +73,11 @@ var autoPlug = require('auto-plug'),
             }
         }
         return options;
-    })(),
+    })();
 
-    prompts = [{
+
+// inquirer questions
+var prompts = [{
         when: function (answers) {
             return savedDataFileExists;
         },
@@ -167,13 +178,16 @@ var autoPlug = require('auto-plug'),
         message: 'Continue?'
     }];
 
+
 function getGithubRepositoryUrl (user, project) {
     return 'git://github.com/' + user + '/' + project + '.git';
 }
 
+
 function getGithubIssuesUrl (user, project) {
     return 'https://github.com/' + user + '/' + project + '/issues';
 }
+
 
 function getLicenseUrl (license) {
     switch(license.toLowerCase()) {
@@ -188,6 +202,7 @@ function getLicenseUrl (license) {
             return '';
     }
 }
+
 
 function parseAnswers (answers) {
     return {
@@ -220,6 +235,7 @@ function parseAnswers (answers) {
     };
 }
 
+
 function scaffold (data, done) {
     gulp.src(templates + '/**/*', {dot: true})
         .pipe(g.template(data))
@@ -233,6 +249,7 @@ function scaffold (data, done) {
             done();
         });
 }
+
 
 gulp.task('default', function (done) {
     if (params.silent) {
