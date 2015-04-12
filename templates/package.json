@@ -22,7 +22,7 @@
     "dev": "gulp dev --environment development",
     "dev-production": "gulp dev --environment production",
     "postinstall": "bower install",
-    "test": "echo \"No tests specified\" && exit 1"
+    "test": "echo \"No tests specified. Skipping.\" && exit 0"
   },
   "main": "",
   "devDependencies": {
