@@ -1,7 +1,7 @@
 /**
- * slush-simbo-basic
+ * slush-simbo
  * ===================
- * https://github.com/simbo/slush-simbo-basic
+ * https://github.com/simbo/slush-simbo
  *
  * Copyright © 2015 Simon Lepel <simbo@simbo.de>
  * Licensed under the MIT license.
