@@ -154,7 +154,7 @@ var prompts = [{
         default: function (answers) {
             var githubUser = savedData.githubUser || defaultOptions.author.githubUser || answers.githubUser;
             if (githubUser) {
-                return getGithubRepositoryUrl(githubUser, answers.projectName);
+                return getGithubUrl(githubUser, answers.projectName);
             }
             return '';
         }
@@ -164,7 +164,7 @@ var prompts = [{
         default: function (answers) {
             var githubUser = savedData.githubUser || defaultOptions.author.githubUser || answers.githubUser;
             if (githubUser) {
-                return getGithubIssuesUrl(githubUser, answers.projectName);
+                return getGithubUrl(githubUser, answers.projectName, 'issues');
             }
             return '';
         }
@@ -185,16 +185,18 @@ var prompts = [{
     }];
 
 
-function getGithubRepositoryUrl (user, project) {
-    return 'git://github.com/' + user + '/' + project + '.git';
+// get url of github repo or repo's issues
+function getGithubUrl (user, project, type) {
+    var types = {
+        repository: '.git',
+        issues: '/issues'
+    };
+    type = Object.keys(types).indexOf(type)===-1 ? 'repository' : type;
+    return 'https://github.com/' + user + '/' + project + types[type];
 }
 
 
-function getGithubIssuesUrl (user, project) {
-    return 'https://github.com/' + user + '/' + project + '/issues';
-}
-
-
+// get url for license
 function getLicenseUrl (license) {
     switch(license.toLowerCase()) {
         case 'mit':
@@ -273,8 +275,8 @@ gulp.task('default', function (done) {
                 projectVersion: defaultOptions.project.version,
                 license: defaultOptions.project.license,
                 licenseUrl: getLicenseUrl(defaultOptions.project.license),
-                repository: getGithubRepositoryUrl(defaultOptions.author.githubUser, defaultOptions.project.name),
-                bugs: getGithubIssuesUrl(defaultOptions.author.githubUser, defaultOptions.project.name),
+                repository: getGithubUrl(defaultOptions.author.githubUser, defaultOptions.project.name),
+                bugs: getGithubUrl(defaultOptions.author.githubUser, defaultOptions.project.name, 'issues'),
                 supportTravis: defaultOptions.options.supportTravis,
                 runInstall: defaultOptions.options.runInstall
             });
