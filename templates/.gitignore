@@ -24,7 +24,6 @@ v8.log
 
 # Vagrant
 .vagrant
-.provision/PROVISIONED
 
 # = IDEs / DevEnv
 
@@ -79,4 +78,3 @@ Icon
 !.gitkeep
 
 # = Do not ignore
-/.project
