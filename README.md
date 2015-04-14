@@ -8,3 +8,5 @@ slush-simbo
 [![Travis Build Status](https://img.shields.io/travis/simbo/slush-simbo/master.svg?style=flat-square)](https://travis-ci.org/simbo/slush-simbo)
 
   > A slush project generator.
+
+# WORK IN PROGRESS
