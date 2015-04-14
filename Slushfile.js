@@ -61,7 +61,14 @@ var defaultOptions = (function () {
                 version: '0.1.0'
             },
             options: {
+                useVagrant: true,
+                webserver: 'nginx',
+                website: 'html',
+                php: false,
+                database: 'none',
+                phpmyadmin: false,
                 supportTravis: true,
+                vagrantUp: false,
                 runInstall: false
             }
         };
@@ -170,18 +177,104 @@ var prompts = [{
         }
     }, {
         type: 'confirm',
+        name: 'useVagrant',
+        message: 'Do you want to use ' + chalk.yellow('Vagrant') + '?',
+        default: defaultOptions.options.useVagrant
+    }, {
+        when: function(answers) {
+            return answers.useVagrant;
+        },
+        type: 'list',
+        name: 'webserver',
+        message: 'What kind of ' + chalk.yellow('webserver') + ' do you want to use?',
+        choices: [{
+            name: 'nginx',
+            value: 'nginx'
+        }, {
+            name: 'Apache2',
+            value: 'apache'
+        }, {
+            name: 'Connect (node.js)',
+            value: 'connect'
+        }],
+        default: function(answers) {
+            return answers.useVagrant ? defaultOptions.options.webserver : 'connect'
+        }
+    }, {
+        when: function(answers) {
+            return ['nginx', 'apache'].indexOf(answers.webserver)!==-1;
+        },
+        type: 'confirm',
+        name: 'php',
+        message: 'Do want to install ' + chalk.yellow('PHP') + '?',
+        default: defaultOptions.options.php
+    }, {
+        when: function(answers) {
+            return answers.useVagrant;
+        },
+        type: 'list',
+        name: 'database',
+        message: 'Do want to setup a ' + chalk.yellow('database') + '?',
+        choices: [{
+            name: 'No',
+            value: 'none'
+        }, {
+            name: 'MySQL',
+            value: 'mysql'
+        }, {
+            name: 'CouchDB',
+            value: 'couchdb'
+        }],
+        default: defaultOptions.options.database
+    }, {
+        when: function(answers) {
+            return answers.database==='mysql';
+        },
+        type: 'confirm',
+        name: 'phpmyadmin',
+        message: 'Do you want to install ' + chalk.yellow('phpMyAdmin') + '?',
+        default: function(answers) {
+            return answers.database==='mysql' ? true : defaultOptions.options.phpmyadmin;
+        }
+    }, {
+        type: 'list',
+        name: 'website',
+        message: 'What kind of basic ' + chalk.yellow('website') + ' do you want to setup?',
+        choices: [{
+            name: 'Single HTML file',
+            value: 'html'
+        }, {
+            name: 'Metalsmith (static site generator)',
+            value: 'metalsmith'
+        }],
+        default: defaultOptions.options.website
+    }, {
+        type: 'confirm',
         name: 'supportTravis',
         message: 'Do you want to add ' + chalk.yellow('Travis CI') + ' support?',
         default: defaultOptions.options.supportTravis
     }, {
+        when: function(answers) {
+            return answers.useVagrant;
+        },
+        type: 'confirm',
+        name: 'vagrantUp',
+        message: 'Do you want to run ' + chalk.yellow('vagrant up') + ' after scaffolding?',
+        default: defaultOptions.options.vagrantUp
+    }, {
+        when: function(answers) {
+            return !answers.useVagrant;
+        },
         type: 'confirm',
         name: 'runInstall',
         message: 'Do you want to ' + chalk.yellow('install') + ' npm and bower packages after scaffolding?',
-        default: defaultOptions.options.runInstall
+        default: function(ansers) {
+            return answers.useVagrant ? false : defaultOptions.options.runInstall;
+        }
     }, {
         type: 'confirm',
         name: 'moveon',
-        message: 'Continue?'
+        message: 'Please check your answers. ' + chalk.yellow('Continue') + '?'
     }];
 
 
@@ -239,7 +332,14 @@ function parseAnswers (answers) {
             year: new Date().getFullYear()
         },
         options: {
+            useVagrant: answers.useVagrant,
+            webserver: answers.webserver,
+            website: answers.website,
+            php: answers.php,
+            database: answers.database,
+            phpmyadmin: answers.phpmyadmin,
             supportTravis: answers.supportTravis,
+            vagrantUp: answers.vagrantUp,
             runInstall: answers.runInstall
         }
     };
@@ -280,7 +380,14 @@ gulp.task('default', function (done) {
                 licenseUrl: getLicenseUrl(defaultOptions.project.license),
                 repository: getGithubUrl(defaultOptions.author.githubUser, defaultOptions.project.name),
                 bugs: getGithubUrl(defaultOptions.author.githubUser, defaultOptions.project.name, 'issues'),
+                useVagrant: defaultOptions.options.useVagrant,
+                webserver: defaultOptions.options.webserver,
+                website: defaultOptions.options.website,
+                php: defaultOptions.options.php,
+                database: defaultOptions.options.database,
+                phpmyadmin: defaultOptions.options.phpmyadmin,
                 supportTravis: defaultOptions.options.supportTravis,
+                vagrantUp: defaultOptions.options.vagrantUp,
                 runInstall: defaultOptions.options.runInstall
             });
         scaffold(data, done);
