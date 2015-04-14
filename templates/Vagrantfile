@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+    config.vm.box = "simbo/trusty64"
+
+    config.ssh.forward_agent = true
+
+    config.vm.network "private_network", ip: "10.0.0.5"
+    config.vm.network "forwarded_port", guest: 80, host: 8080
+    config.vm.network "forwarded_port", guest: 443, host: 4443
+    config.vm.network "forwarded_port", guest: 5984, host: 5984
+
+    if Vagrant::Util::Platform.windows?
+        config.vm.synced_folder ".", "/vagrant", id: "vagrant-root",
+            :nfs => false,
+            :mount_options => ["dmode=775,fmode=664"],
+            :owner => "vagrant",
+            :group => "vagrant"
+    else
+        config.vm.synced_folder ".", "/vagrant", id: "vagrant-root",
+            :nfs => true,
+            :mount_options => ["intr", "noatime", "nolock"],
+            :linux__nfs_options => ["all_squash", "async", "no_subtree_check", "rw"],
+            :bsd__nfs_options => ["alldirs", "async", "no_subtree_check", "rw"]
+    end
+
+    config.vm.provider "virtualbox" do |v|
+        v.customize [
+            "modifyvm", :id,
+            "--memory", 512,
+            "--cpus", 1
+        ]
+    end
+
+    config.vm.provision "shell",
+        :path => ".provision/provision.sh",
+        :privileged => false
+
+end
