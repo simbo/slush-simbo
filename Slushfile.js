@@ -212,6 +212,7 @@ function getLicenseUrl (license) {
 }
 
 
+// parse answers, generate data object
 function parseAnswers (answers) {
     return {
         project: {
@@ -245,6 +246,7 @@ function parseAnswers (answers) {
 }
 
 
+// scaffold the project
 function scaffold (data, done) {
     gulp.src([
             templates + '/**/*',
@@ -263,6 +265,7 @@ function scaffold (data, done) {
 }
 
 
+// the actual gulp task
 gulp.task('default', function (done) {
     if (params.silent) {
         var data = parseAnswers({
