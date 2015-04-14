@@ -97,28 +97,28 @@ var prompts = [{
             return !savedDataFileExists || !answers.useSavedAuthorData;
         },
         name: 'authorName',
-        message: 'What is the author\'s name?',
+        message: 'What is the ' + chalk.yellow('author\'s name') + '?',
         default: defaultOptions.author.name
     }, {
         when: function (answers) {
             return !savedDataFileExists || !answers.useSavedAuthorData;
         },
         name: 'authorEmail',
-        message: 'What is the author\'s email?',
+        message: 'What is the ' + chalk.yellow('author\'s email') + '?',
         default: defaultOptions.author.email
     }, {
         when: function (answers) {
             return !savedDataFileExists || !answers.useSavedAuthorData;
         },
         name: 'authorUrl',
-        message: 'What is the author\'s website?',
+        message: 'What is the ' + chalk.yellow('author\'s website') + '?',
         default: defaultOptions.author.url
     }, {
         when: function (answers) {
             return !savedDataFileExists || !answers.useSavedAuthorData;
         },
         name: 'githubUser',
-        message: 'What is the GitHub username?',
+        message: 'What is the ' + chalk.yellow('GitHub username') + '?',
         default: defaultOptions.author.githubUser
     }, {
         when: function (answers) {
@@ -126,31 +126,31 @@ var prompts = [{
         },
         name: 'saveAuthorData',
         type: 'confirm',
-        message: 'Save author information for future project scaffolding?'
+        message: 'Do you want to ' + chalk.yellow('save author information') + ' for future project scaffolding?'
     }, {
         name: 'projectName',
-        message: 'What is the name of your project?',
+        message: 'What is the ' + chalk.yellow('name') + ' of your project?',
         default: defaultOptions.project.name
     }, {
         name: 'projectDescription',
-        message: 'What is the description of your project?',
+        message: 'What is the ' + chalk.yellow('description') + ' of your project?',
     }, {
         name: 'projectVersion',
-        message: 'What is the version of your project?',
+        message: 'What is the ' + chalk.yellow('version') + ' of your project?',
         default: defaultOptions.project.version
     }, {
         name: 'license',
-        message: 'What license do you want to use for your project?',
+        message: 'What ' + chalk.yellow('license') + ' do you want to use for your project?',
         default: 'MIT'
     }, {
         name: 'licenseUrl',
-        message: 'What is the url for license information?',
+        message: 'What is the ' + chalk.yellow('url for license') + ' information?',
         default: function (answers) {
             return getLicenseUrl(answers.license.toLowerCase());
         }
     }, {
         name: 'repository',
-        message: 'What is the url of the project repository?',
+        message: 'What is the url of the project ' + chalk.yellow('repository') + '?',
         default: function (answers) {
             var githubUser = savedData.githubUser || defaultOptions.author.githubUser || answers.githubUser;
             if (githubUser) {
@@ -160,7 +160,7 @@ var prompts = [{
         }
     }, {
         name: 'bugs',
-        message: 'What is the url of the project\'s bug tracker?',
+        message: 'What is the url of the project ' + chalk.yellow('bug tracker') + '?',
         default: function (answers) {
             var githubUser = savedData.githubUser || defaultOptions.author.githubUser || answers.githubUser;
             if (githubUser) {
@@ -171,12 +171,12 @@ var prompts = [{
     }, {
         type: 'confirm',
         name: 'supportTravis',
-        message: 'Do you want to add Travis CI support?',
+        message: 'Do you want to add ' + chalk.yellow('Travis CI') + ' support?',
         default: defaultOptions.options.supportTravis
     }, {
         type: 'confirm',
         name: 'runInstall',
-        message: 'Do you want to install npm and bower packages after scaffolding?',
+        message: 'Do you want to ' + chalk.yellow('install') + ' npm and bower packages after scaffolding?',
         default: defaultOptions.options.runInstall
     }, {
         type: 'confirm',
