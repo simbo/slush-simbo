@@ -256,7 +256,7 @@ gulp.task('watch', function() {
 
 });
 
-/* = Watch Task */<% if (webserver==='connect') %>
+/* = Watch Task */<% if (webserver==='connect') { %>
 
 
 /**
