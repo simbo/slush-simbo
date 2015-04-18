@@ -369,7 +369,10 @@ function getTemplateSources (options) {
             sources.push('.provision/scripts/mysql.sh');
         }
         if (options.php) {
-            sources.push('.provision/scripts/php.sh');
+            sources.push(
+                '.provision/scripts/php.sh',
+                '.provision/files/etc/php5/**/*'
+            );
         }
     }
     if (options.bower) {
