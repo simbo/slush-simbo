@@ -329,7 +329,7 @@ function getTemplateSources (options) {
             '.editorconfig',
             '.gitignore',
             'GulpConfig.js',
-            'Gulpfile.json',
+            'Gulpfile.js',
             'LICENSE',
             'package.json',
             'README.md'
