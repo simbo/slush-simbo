@@ -18,11 +18,11 @@ fi
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
-# scripts
-source $PROVISION_SCRIPTS/nginx.sh
-source $PROVISION_SCRIPTS/apache.sh
-source $PROVISION_SCRIPTS/mysql.sh
-source $PROVISION_SCRIPTS/php.sh
+# scripts<% if (webserver==='nginx') { %>
+source $PROVISION_SCRIPTS/nginx.sh<% } %><% if (webserver==='apache') { %>
+source $PROVISION_SCRIPTS/apache.sh<% } %><% if (database==='mysql') { %>
+source $PROVISION_SCRIPTS/mysql.sh<% } %><% if (php) { %>
+source $PROVISION_SCRIPTS/php.sh<% } %>
 source $PROVISION_SCRIPTS/node.sh
 
 # write provision date to file to avoid reprovisioning

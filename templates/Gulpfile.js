@@ -97,10 +97,10 @@ gulp.task('build:css', ['clean:js'], function() {
         }))
 
         // write processed styles
-        .pipe(gulp.dest(path.join(config.paths.assets, 'css')))
+        .pipe(gulp.dest(path.join(config.paths.assets, 'css')))<% if (webserver==='connect') { %>
 
         // live-reload
-        .pipe(g.connect.reload());;
+        .pipe(g.connect.reload())<% } %>;
 
 });
 
@@ -146,10 +146,10 @@ gulp.task('build:js', ['clean:js'], function() {
         }))
 
         // write processed javascripts
-        .pipe(gulp.dest(path.join(config.paths.assets, 'js')))
+        .pipe(gulp.dest(path.join(config.paths.assets, 'js')))<% if (webserver==='connect') { %>
 
         // live-reload
-        .pipe(g.connect.reload());
+        .pipe(g.connect.reload())<% } %>;
 
 });
 
@@ -256,7 +256,7 @@ gulp.task('watch', function() {
 
 });
 
-/* = Watch Task */
+/* = Watch Task */<% if (webserver==='connect') %>
 
 
 /**
@@ -277,7 +277,7 @@ gulp.task('serve', function() {
     });
 });
 
-/* = Server Task */
+/* = Server Task */<% } %>
 
 
 /**
@@ -311,9 +311,9 @@ gulp.task('build', ['copy:deps', 'config-sync'], function(done) {
     );
 });
 
-// build, serve and watch
+// build<% if (webserver==='connect') { %>, serve<% } %> and watch
 gulp.task('dev', ['build'], function() {
-    gulp.start('serve', 'watch');
+    gulp.start(<% if (webserver==='connect') { %>'serve', <% } %>'watch');
 });
 
 /* = Common tasks */
