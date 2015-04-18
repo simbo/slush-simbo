@@ -1,6 +1,16 @@
+install_packages nginx
 
-sudo apt-get -y install nginx
-sudo cp -R $PROVISION_FILES/etc/nginx/* /etc/nginx
-sudo rm /etc/nginx/sites-enabled/default
-sudo ln -s /etc/nginx/sites-available/vagrant /etc/nginx/sites-enabled/vagrant
-sudo service nginx restart
+copy_file /etc/nginx/nginx.conf
+copy_file /etc/nginx/sites-available/vagrant
+copy_file /etc/nginx/conf.d/deny.conf
+copy_file /etc/nginx/conf.d/expires.conf
+copy_file /etc/nginx/conf.d/favicon.conf
+copy_file /etc/nginx/conf.d/gzip.conf
+copy_file /etc/nginx/conf.d/robots.conf<% if (php) { %>
+copy_file /etc/nginx/conf.d/php.conf<% } %><% if (phpmyadmin) { %>
+copy_file /etc/nginx/conf.d/phpmyadmin.conf<% } %>
+
+rm -f /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/vagrant /etc/nginx/sites-enabled/vagrant
+
+service nginx restart
