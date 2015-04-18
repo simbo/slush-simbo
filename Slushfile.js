@@ -181,7 +181,7 @@ var prompts = [{
     }, {
         name: 'webserver',
         type: 'list',
-        when: function(answers) {
+        when: function (answers) {
             return answers.vagrant;
         },
         message: 'What kind of ' + chalk.yellow('webserver') + ' do you want to use?',
@@ -195,13 +195,13 @@ var prompts = [{
             name: 'Connect (node.js)',
             value: 'connect'
         }],
-        default: function(answers) {
+        default: function (answers) {
             return answers.vagrant ? defaultOptions.webserver : 'connect'
         }
     }, {
         name: 'php',
         type: 'confirm',
-        when: function(answers) {
+        when: function (answers) {
             return ['nginx', 'apache'].indexOf(answers.webserver)!==-1;
         },
         message: 'Do want to install ' + chalk.yellow('PHP') + '?',
@@ -209,7 +209,7 @@ var prompts = [{
     }, {
         name: 'database',
         type: 'list',
-        when: function(answers) {
+        when: function (answers) {
             return answers.vagrant;
         },
         message: 'Do want to setup a ' + chalk.yellow('database') + '?',
@@ -227,11 +227,11 @@ var prompts = [{
     }, {
         name: 'phpmyadmin',
         type: 'confirm',
-        when: function(answers) {
+        when: function (answers) {
             return answers.database==='mysql' && answers.php;
         },
         message: 'Do you want to install ' + chalk.yellow('phpMyAdmin') + '?',
-        default: function(answers) {
+        default: function (answers) {
             return answers.database==='mysql' && answers.php ? true : defaultOptions.phpmyadmin;
         }
     }, {
@@ -259,7 +259,7 @@ var prompts = [{
     }, {
         name: 'vagrantUp',
         type: 'confirm',
-        when: function(answers) {
+        when: function (answers) {
             return answers.vagrant;
         },
         message: 'Do you want to run ' + chalk.yellow('vagrant up') + ' after scaffolding?',
@@ -267,14 +267,14 @@ var prompts = [{
     }, {
         name: 'install',
         type: 'confirm',
-        when: function(answers) {
+        when: function (answers) {
             return !answers.vagrant;
         },
-        message: function(answers) {
+        message: function (answers) {
             var bowerMsg = answers.bower ? ' and bower components' : '';
             return 'Do you want to ' + chalk.yellow('install') + ' npm modules' + bowerMsg + ' after scaffolding?';
         },
-        default: function(answers) {
+        default: function (answers) {
             return answers.vagrant ? false : defaultOptions.install;
         }
     }, {
@@ -323,8 +323,8 @@ function parseAnswers (answers) {
 }
 
 
-// scaffold the project
-function scaffold (options, done) {
+// combine template sources depending on options
+function getTemplateSources (options) {
     var sources = [
             '.editorconfig',
             '.gitignore',
@@ -362,9 +362,15 @@ function scaffold (options, done) {
     if (options.travis) {
         sources.push('.travis.yml');
     }
-    gulp.src(sources.map(function(source) {
-            return templates + '/' + source;
-        }), {
+    return sources.map(function (source) {
+        return templates + '/' + source;
+    });
+}
+
+
+// scaffold the project
+function scaffold (options, done) {
+    gulp.src(getTemplateSources(options), {
             dot: true,
             base: templates
         })
