@@ -10,3 +10,17 @@ slush-simbo
   > A slush project generator.
 
 # WORK IN PROGRESS
+
+### Usage
+
+``` sh
+# install slush and the generator
+npm install -g slush slush-simbo
+
+# create a project directory and enter
+mkdir my-project
+cd my-project
+
+# start the generator
+slush simbo
+```
