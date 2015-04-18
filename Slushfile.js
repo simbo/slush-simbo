@@ -342,7 +342,10 @@ function scaffold (options, done) {
     }
     gulp.src(sources.map(function(source) {
             return templates + '/' + source;
-        }), {dot: true})
+        }), {
+            dot: true,
+            base: templates
+        })
         .pipe(g.template(options))
         .pipe(g.conflict(cwd + '/'))
         .pipe(gulp.dest(cwd + '/'))
