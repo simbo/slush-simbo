@@ -338,6 +338,7 @@ function getTemplateSources (options) {
         sources.push(
             'Vagrantfile',
             '.provision/provision.sh',
+            '.provision/scripts/functions.sh',
             '.provision/scripts/node.sh'
         );
         if (options.webserver==='apache') {
