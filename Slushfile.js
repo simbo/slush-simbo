@@ -342,7 +342,10 @@ function getTemplateSources (options) {
             '.provision/scripts/node.sh'
         );
         if (options.webserver==='apache') {
-            sources.push('.provision/scripts/apache.sh');
+            sources.push(
+                '.provision/scripts/apache.sh',
+                '.provision/files/etc/apache2/**/*'
+            );
         }
         if (options.webserver==='nginx') {
             sources.push(
