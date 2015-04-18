@@ -309,10 +309,40 @@ function parseAnswers (answers) {
 
 // scaffold the project
 function scaffold (options, done) {
-    gulp.src([
-            templates + '/**/*',
-            ( options.optionTravis ? '' : '!' + templates + '/.travis.yml' )
-        ], {dot: true})
+    var sources = [
+            '.bowerrc',
+            '.editorconfig',
+            '.gitignore',
+            'bower.json',
+            'GulpConfig.js',
+            'Gulpfile.json',
+            'LICENSE',
+            'package.json',
+            'README.md'
+        ];
+    if (options.vagrant) {
+        sources.push('Vagrantfile');
+        sources.push('.provision/provision.sh');
+        sources.push('.provision/scripts/node.sh');
+        if (options.webserver==='apache') {
+            sources.push('.provision/scripts/apache.sh');
+        }
+        if (options.webserver==='nginx') {
+            sources.push('.provision/scripts/nginx.sh');
+        }
+        if (options.database==='mysql') {
+            sources.push('.provision/scripts/mysql.sh');
+        }
+        if (options.php) {
+            sources.push('.provision/scripts/php.sh');
+        }
+    }
+    if (options.travis) {
+        sources.push('.travis.yml');
+    }
+    gulp.src(sources.map(function(source) {
+            return templates + '/' + source;
+        }), {dot: true})
         .pipe(g.template(options))
         .pipe(g.conflict(cwd + '/'))
         .pipe(gulp.dest(cwd + '/'))
