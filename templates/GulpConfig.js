@@ -10,8 +10,8 @@ module.exports = (function(config) {
 
     // data
     var cwd = process.cwd(),
-        pkgJson = require(cwd + '/package.json');
-        bowerJson = require(cwd + '/bower.json');
+        pkgJson = require(cwd + '/package.json')<% if (bower) { %>,
+        bowerJson = require(cwd + '/bower.json')<% } %>;
 
 
     /**
@@ -21,8 +21,8 @@ module.exports = (function(config) {
 
     config.paths = (function(p) {
         p.root      = cwd;
-        p.node      = path.join(p.root, 'node_modules');
-        p.bower     = path.join(p.root, 'bower_components');
+        p.node      = path.join(p.root, 'node_modules');<% if (bower) { %>
+        p.bower     = path.join(p.root, 'bower_components');<% } %>
         p.src       = path.join(p.root, 'src');
         p.web       = path.join(p.root, 'web');
         p.assetsDev = path.join(p.src,  'assets-dev');
@@ -98,7 +98,7 @@ module.exports = (function(config) {
     // jshint options
     config.jshint = {
         lookup: false
-    };
+    };<% if (bower) { %>
 
     // configsync options
     // https://github.com/danlevan/gulp-config-sync
@@ -110,7 +110,7 @@ module.exports = (function(config) {
             'version'
         ],
         space: 2
-    };
+    };<% } %>
 
     // svgmin options
     // https://github.com/ben-eb/gulp-svgmin

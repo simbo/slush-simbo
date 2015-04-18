@@ -185,7 +185,7 @@ gulp.task('copy:deps', ['clean:deps'], function(done) {
     runSequence(copySequence, done);
 });
 
-/* = Copy tasks */
+/* = Copy tasks */<% if (bower) { %>
 
 
 /**
@@ -200,7 +200,7 @@ gulp.task('config-sync', function() {
         .pipe(gulp.dest(config.paths.root));
 });
 
-/* = Config sync task */
+/* = Config sync task */<% } %>
 
 
 /**
@@ -304,7 +304,7 @@ gulp.task('svgmin', function() {
 gulp.task('default', ['build']);
 
 // full build
-gulp.task('build', ['copy:deps', 'config-sync'], function(done) {
+gulp.task('build', ['copy:deps'<% if (bower) { %>, 'config-sync'<% } %>], function(done) {
     runSequence(
         ['build:css', 'build:js'],
         done

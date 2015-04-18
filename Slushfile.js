@@ -63,6 +63,7 @@ var defaultOptions = (function () {
             php: true,
             database: 'none',
             phpmyadmin: false,
+            bower: true,
             travis: true,
             vagrantUp: false,
             install: false
@@ -246,6 +247,11 @@ var prompts = [{
         }],
         default: defaultOptions.website
     }, {
+        name: 'bower',
+        type: 'confirm',
+        message: 'Do you want to add ' + chalk.yellow('Bower') + ' support?',
+        default: defaultOptions.bower
+    }, {
         name: 'travis',
         type: 'confirm',
         message: 'Do you want to add ' + chalk.yellow('Travis CI') + ' support?',
@@ -264,8 +270,11 @@ var prompts = [{
         when: function(answers) {
             return !answers.vagrant;
         },
-        message: 'Do you want to ' + chalk.yellow('install') + ' npm and bower packages after scaffolding?',
-        default: function(ansers) {
+        message: function(answers) {
+            var bowerMsg = answers.bower ? ' and bower components' : '';
+            return 'Do you want to ' + chalk.yellow('install') + ' npm modules' + bowerMsg + ' after scaffolding?';
+        },
+        default: function(answers) {
             return answers.vagrant ? false : defaultOptions.install;
         }
     }, {
@@ -316,10 +325,8 @@ function parseAnswers (answers) {
 // scaffold the project
 function scaffold (options, done) {
     var sources = [
-            '.bowerrc',
             '.editorconfig',
             '.gitignore',
-            'bower.json',
             'GulpConfig.js',
             'Gulpfile.json',
             'LICENSE',
@@ -342,6 +349,12 @@ function scaffold (options, done) {
         if (options.php) {
             sources.push('.provision/scripts/php.sh');
         }
+    }
+    if (options.bower) {
+        sources.push(
+            '.bowerrc',
+            'bower.json'
+        );
     }
     if (options.travis) {
         sources.push('.travis.yml');
