@@ -10,16 +10,17 @@
 
 
 // required modules
-var _        = require('lodash'),
-    autoPlug = require('auto-plug'),
-    chalk    = require('chalk'),
-    fs       = require('fs'),
-    gulp     = require('gulp'),
-    ini      = require('ini'),
-    inquirer = require('inquirer'),
-    minimist = require('minimist'),
-    path     = require('path'),
-    util     = require('util');
+var _            = require('lodash'),
+    autoPlug     = require('auto-plug'),
+    chalk        = require('chalk'),
+    childProcess = require('child_process'),
+    fs           = require('fs'),
+    gulp         = require('gulp'),
+    ini          = require('ini'),
+    inquirer     = require('inquirer'),
+    minimist     = require('minimist'),
+    path         = require('path'),
+    util         = require('util');
 
 
 // some variables
@@ -395,6 +396,10 @@ function getTemplateSources (options) {
 
 // scaffold the project
 function scaffold (options, done) {
+    var childProcessOptions = {
+        stdio: 'inherit',
+        cwd: cwd
+    };
     gulp.src(getTemplateSources(options), {
             dot: true,
             base: templates
@@ -402,11 +407,13 @@ function scaffold (options, done) {
         .pipe(g.template(options))
         .pipe(g.conflict(cwd + '/'))
         .pipe(gulp.dest(cwd + '/'))
-        .pipe(g.if(
-            options.install,
-            g.install({ ignoreScripts: true })
-        ))
         .on('end', function () {
+            if (options.install) {
+                childProcess.spawnSync('npm', ['install'], childProcessOptions);
+            }
+            if (options.vagrantUp) {
+                childProcess.spawnSync('vagrant', ['up'], childProcessOptions);
+            }
             done();
         });
 }
