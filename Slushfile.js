@@ -374,6 +374,9 @@ function getTemplateSources (options) {
                 '.provision/files/etc/php5/**/*'
             );
         }
+        if (options.phpmyadmin) {
+            sources.push('.provision/scripts/phpmyadmin.sh');
+        }
     }
     if (options.bower) {
         sources.push(
