@@ -23,7 +23,7 @@ source $PROVISION_SCRIPTS/nginx.sh
 source $PROVISION_SCRIPTS/apache.sh
 source $PROVISION_SCRIPTS/mysql.sh
 source $PROVISION_SCRIPTS/php.sh
-source $PROVISION_SCRIPTS/nvm.sh
+source $PROVISION_SCRIPTS/node.sh
 
 # write provision date to file to avoid reprovisioning
 echo "$(date)" > $PROVISIONED

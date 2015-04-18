@@ -1,6 +1,6 @@
 /**
  * slush-simbo
- * ===================
+ * ===========
  * https://github.com/simbo/slush-simbo
  *
  * Copyright © 2015 Simon Lepel <simbo@simbo.de>
@@ -57,15 +57,15 @@ var defaultOptions = (function () {
             projectDescription: '',
             projectLicenseType: 'MIT',
             projectVersion: '0.1.0',
-            optionVagrant: true,
-            optionWebserver: 'nginx',
-            optionWebsite: 'html',
-            optionPhp: false,
-            optionDatabase: 'none',
-            optionPhpmyadmin: false,
-            optionTravis: true,
-            optionVagrantUp: false,
-            optionInstall: false
+            vagrant: true,
+            webserver: 'nginx',
+            website: 'html',
+            php: false,
+            database: 'none',
+            phpmyadmin: false,
+            travis: true,
+            vagrantUp: false,
+            install: false
         };
         if (!savedData) {
             var gitconfig = path.join(home, '.gitconfig');
@@ -167,15 +167,15 @@ var prompts = [{
             return githubUser ? getGithubUrl(githubUser, answers.projectName, 'issues') : '';
         }
     }, {
-        name: 'optionVagrant',
+        name: 'vagrant',
         type: 'confirm',
         message: 'Do you want to use ' + chalk.yellow('Vagrant') + '?',
-        default: defaultOptions.optionVagrant
+        default: defaultOptions.vagrant
     }, {
-        name: 'optionWebserver',
+        name: 'webserver',
         type: 'list',
         when: function(answers) {
-            return answers.optionVagrant;
+            return answers.vagrant;
         },
         message: 'What kind of ' + chalk.yellow('webserver') + ' do you want to use?',
         choices: [{
@@ -189,21 +189,21 @@ var prompts = [{
             value: 'connect'
         }],
         default: function(answers) {
-            return answers.optionVagrant ? defaultOptions.optionWebserver : 'connect'
+            return answers.vagrant ? defaultOptions.webserver : 'connect'
         }
     }, {
-        name: 'optionPhp',
+        name: 'php',
         type: 'confirm',
         when: function(answers) {
-            return ['nginx', 'apache'].indexOf(answers.optionWebserver)!==-1;
+            return ['nginx', 'apache'].indexOf(answers.webserver)!==-1;
         },
         message: 'Do want to install ' + chalk.yellow('PHP') + '?',
-        default: defaultOptions.optionPhp
+        default: defaultOptions.php
     }, {
-        name: 'optionDatabase',
+        name: 'database',
         type: 'list',
         when: function(answers) {
-            return answers.optionVagrant;
+            return answers.vagrant;
         },
         message: 'Do want to setup a ' + chalk.yellow('database') + '?',
         choices: [{
@@ -216,19 +216,19 @@ var prompts = [{
             name: 'CouchDB',
             value: 'couchdb'
         }],
-        default: defaultOptions.optionDatabase
+        default: defaultOptions.database
     }, {
-        name: 'optionPhpmyadmin',
+        name: 'phpmyadmin',
         type: 'confirm',
         when: function(answers) {
-            return answers.optionDatabase==='mysql' && answers.optionPhp;
+            return answers.database==='mysql' && answers.php;
         },
         message: 'Do you want to install ' + chalk.yellow('phpMyAdmin') + '?',
         default: function(answers) {
-            return answers.optionDatabase==='mysql' && answers.optionPhp ? true : defaultOptions.optionPhpmyadmin;
+            return answers.database==='mysql' && answers.php ? true : defaultOptions.phpmyadmin;
         }
     }, {
-        name: 'optionWebsite',
+        name: 'website',
         type: 'list',
         message: 'What kind of basic ' + chalk.yellow('website') + ' do you want to setup?',
         choices: [{
@@ -238,29 +238,29 @@ var prompts = [{
             name: 'Metalsmith (static site generator)',
             value: 'metalsmith'
         }],
-        default: defaultOptions.optionWebsite
+        default: defaultOptions.website
     }, {
-        name: 'optionTravis',
+        name: 'travis',
         type: 'confirm',
         message: 'Do you want to add ' + chalk.yellow('Travis CI') + ' support?',
-        default: defaultOptions.optionTravis
+        default: defaultOptions.travis
     }, {
-        name: 'optionVagrantUp',
+        name: 'vagrantUp',
         type: 'confirm',
         when: function(answers) {
-            return answers.optionVagrant;
+            return answers.vagrant;
         },
         message: 'Do you want to run ' + chalk.yellow('vagrant up') + ' after scaffolding?',
-        default: defaultOptions.optionVagrantUp
+        default: defaultOptions.vagrantUp
     }, {
-        name: 'optionInstall',
+        name: 'install',
         type: 'confirm',
         when: function(answers) {
-            return !answers.optionVagrant;
+            return !answers.vagrant;
         },
         message: 'Do you want to ' + chalk.yellow('install') + ' npm and bower packages after scaffolding?',
         default: function(ansers) {
-            return answers.optionVagrant ? false : defaultOptions.optionInstall;
+            return answers.vagrant ? false : defaultOptions.install;
         }
     }, {
         name: 'continue',
@@ -317,7 +317,7 @@ function scaffold (options, done) {
         .pipe(g.conflict(cwd + '/'))
         .pipe(gulp.dest(cwd + '/'))
         .pipe(g.if(
-            options.optionInstall,
+            options.install,
             g.install({ ignoreScripts: true })
         ))
         .on('end', function () {
