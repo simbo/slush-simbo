@@ -58,8 +58,8 @@ var defaultOptions = (function () {
             projectDescription: '',
             projectLicenseType: 'MIT',
             projectVersion: '0.1.0',
-            vagrant: false,
-            webserver: 'nginx',
+            vagrant: true,
+            webserver: 'connect',
             website: 'html',
             php: true,
             database: 'none',
@@ -197,7 +197,7 @@ var prompts = [{
             value: 'connect'
         }],
         default: function (answers) {
-            return answers.vagrant ? defaultOptions.webserver : 'connect'
+            return answers.vagrant ? 'nginx' : defaultOptions.webserver
         }
     }, {
         name: 'php',
@@ -315,7 +315,7 @@ function getLicenseUrl (license) {
 
 // parse answers, generate options object
 function parseAnswers (answers) {
-    var options = _.merge({}, answers);
+    var options = _.merge({}, defaultOptions, answers || {});
     if (savedData && answers.useSavedAuthorData) {
         options = _.merge(options, savedData);
     }
@@ -422,11 +422,11 @@ function scaffold (options, done) {
 // the actual gulp task
 gulp.task('default', function (done) {
     if (params.silent) {
-        var options = _.merge({}, defaultOptions);
+        var options = parseAnswers();
         options.projectLicenseUrl = getLicenseUrl(defaultOptions.projectLicenseType);
         options.projectRepositoryUrl = getGithubUrl(defaultOptions.authorGithubUser, defaultOptions.projectName);
         options.projectBugtrackerUrl = getGithubUrl(defaultOptions.authorGithubUser, defaultOptions.projectName, 'issues');
-        scaffold(parseAnswers(options), done);
+        scaffold(options, done);
     }
     else {
         inquirer.prompt(prompts, function (answers) {
