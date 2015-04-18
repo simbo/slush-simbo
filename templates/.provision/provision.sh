@@ -37,6 +37,5 @@ su vagrant -c "touch $PROVISIONED"
 echo "$(date)" > $PROVISIONED
 
 # print provision duration
-echo $PROVISION_STARTED
 PROVISION_DURATION=$((`date +%s`-$PROVISION_STARTED))
 echo "Provisioning done after $(format_duration $PROVISION_DURATION)."
