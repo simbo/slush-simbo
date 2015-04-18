@@ -280,7 +280,8 @@ var prompts = [{
     }, {
         name: 'continue',
         type: 'confirm',
-        message: 'Please check your answers. ' + chalk.yellow('Continue') + '?'
+        message: 'Please check your answers. ' + chalk.yellow('Continue') + '?',
+        default: true
     }];
 
 
@@ -334,9 +335,11 @@ function scaffold (options, done) {
             'README.md'
         ];
     if (options.vagrant) {
-        sources.push('Vagrantfile');
-        sources.push('.provision/provision.sh');
-        sources.push('.provision/scripts/node.sh');
+        sources.push(
+            'Vagrantfile',
+            '.provision/provision.sh',
+            '.provision/scripts/node.sh'
+        );
         if (options.webserver==='apache') {
             sources.push('.provision/scripts/apache.sh');
         }
