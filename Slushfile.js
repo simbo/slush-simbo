@@ -352,12 +352,7 @@ function getTemplateSources (options) {
             sources.push(
                 '.provision/scripts/nginx.sh',
                 '.provision/files/etc/nginx/nginx.conf',
-                '.provision/files/etc/nginx/sites-available/vagrant',
-                '.provision/files/etc/nginx/conf.d/deny.conf',
-                '.provision/files/etc/nginx/conf.d/expires.conf',
-                '.provision/files/etc/nginx/conf.d/favicon.conf',
-                '.provision/files/etc/nginx/conf.d/gzip.conf',
-                '.provision/files/etc/nginx/conf.d/robots.conf'
+                '.provision/files/etc/nginx/sites-available/vagrant'
             );
             if (options.php) {
                 sources.push('.provision/files/etc/nginx/conf.d/php.conf');
