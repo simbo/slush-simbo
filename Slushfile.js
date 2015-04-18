@@ -49,10 +49,10 @@ var params = (function () {
 // default options
 var defaultOptions = (function () {
         var options = {
-            authorName: savedData ? savedData.authorName : path.basename(home),
-            authorEmail: savedData ? savedData.authorEmail : '',
-            authorUrl: savedData ? savedData.authorUrl : '',
-            authorGithubUser: savedData ? savedData.authorGithubUser : path.basename(home),
+            authorName: path.basename(home),
+            authorEmail: '',
+            authorUrl: '',
+            authorGithubUser: path.basename(home),
             projectName: path.basename(cwd),
             projectDescription: '',
             projectLicenseType: 'MIT',
@@ -74,6 +74,12 @@ var defaultOptions = (function () {
                 options.authorName = gitconfigData.user.name;
                 options.authorEmail = gitconfigData.user.email;
             }
+        }
+        else {
+            options.authorName = savedData.authorName;
+            options.authorEmail = savedData.authorEmail;
+            options.authorUrl = savedData.authorUrl;
+            options.authorGithubUser = savedData.authorGithubUser;
         }
         return options;
     })();
