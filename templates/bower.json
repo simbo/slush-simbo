@@ -1,12 +1,12 @@
 {
-  "name": "<%= project.name %>",
-  "version": "<%= project.version %>",
-  "description": "<%= project.description %>",
-  "author": "<%= author.name %><% if (author.email!=='') { %> <<%= author.email %>><% } %><% if (author.url!=='') { %> (<%= author.url %>)<% } %>",
+  "name": "<%= projectName %>",
+  "version": "<%= projectVersion %>",
+  "description": "<%= projectDescription %>",
+  "author": "<%= authorName %><% if (authorEmail!=='') { %> <<%= authorEmail %>><% } %><% if (authorUrl!=='') { %> (<%= authorUrl %>)<% } %>",
   "keywords": [],
   "license": {
-    "type": "<%= license.type %>"<% if (license.url!=='') { %>,
-    "url": "<%= license.url %>"<% } %>
+    "type": "<%= projectLicenseType %>"<% if (projectLicenseUrl!=='') { %>,
+    "url": "<%= projectLicenseUrl %>"<% } %>
   },
   "private": true,
   "ignore": [

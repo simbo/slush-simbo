@@ -1,20 +1,20 @@
 {
-  "name": "<%= project.name %>",
-  "version": "<%= project.version %>",
-  "description": "<%= project.description %>",
-  "author": "<%= author.name %><% if (author.email!=='') { %> <<%= author.email %>><% } %><% if (author.url!=='') { %> (<%= author.url %>)<% } %>",
+  "name": "<%= projectName %>",
+  "version": "<%= projectVersion %>",
+  "description": "<%= projectDescription %>",
+  "author": "<%= authorName %><% if (authorEmail!=='') { %> <<%= authorEmail %>><% } %><% if (authorUrl!=='') { %> (<%= authorUrl %>)<% } %>",
   "keywords": [],
   "license": {
-    "type": "<%= license.type %>"<% if (license.url!=='') { %>,
-    "url": "<%= license.url %>"<% } %>
+    "type": "<%= projectLicenseType %>"<% if (projectLicenseUrl!=='') { %>,
+    "url": "<%= projectLicenseUrl %>"<% } %>
   },
   "private": true,
-  <% if (repository.url!=='') { %>"repository": {
+  <% if (projectRepositoryUrl!=='') { %>"repository": {
     "type": "git",
-    "url": "<%= repository.url %>"
+    "url": "<%= projectRepositoryUrl %>"
   },
-  <% } %><% if (bugs.url!=='') { %>"bugs": {
-    "url": "<%= bugs.url %>"
+  <% } %><% if (projectBugtrackerUrl!=='') { %>"bugs": {
+    "url": "<%= projectBugtrackerUrl %>"
   },
   <% } %>"scripts": {
     "build": "gulp build --environment production",
