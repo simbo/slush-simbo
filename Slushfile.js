@@ -314,9 +314,9 @@ function getLicenseUrl (license) {
 
 
 // parse answers, generate options object
-function parseAnswers (answers) {
+function getOptions (answers) {
     var options = _.merge({}, defaultOptions, answers || {});
-    if (savedData && answers.useSavedAuthorData) {
+    if (savedData && options.useSavedAuthorData) {
         options = _.merge(options, savedData);
     }
     options.projectLicenseYear = new Date().getFullYear();
@@ -422,7 +422,7 @@ function scaffold (options, done) {
 // the actual gulp task
 gulp.task('default', function (done) {
     if (params.silent) {
-        var options = parseAnswers();
+        var options = getOptions();
         options.projectLicenseUrl = getLicenseUrl(defaultOptions.projectLicenseType);
         options.projectRepositoryUrl = getGithubUrl(defaultOptions.authorGithubUser, defaultOptions.projectName);
         options.projectBugtrackerUrl = getGithubUrl(defaultOptions.authorGithubUser, defaultOptions.projectName, 'issues');
@@ -433,7 +433,7 @@ gulp.task('default', function (done) {
             if (!answers.continue) {
                 return done();
             }
-            var options = parseAnswers(answers);
+            var options = getOptions(answers);
             if (answers.saveAuthorData) {
                 fs.writeFileSync(savedDataFile, ini.stringify({
                     authorName: options.authorName,
