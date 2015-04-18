@@ -63,7 +63,7 @@ var defaultOptions = (function () {
             php: true,
             database: 'none',
             phpmyadmin: false,
-            bower: true,
+            bower: false,
             travis: true,
             vagrantUp: false,
             install: false
