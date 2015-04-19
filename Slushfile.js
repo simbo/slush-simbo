@@ -378,6 +378,9 @@ function getTemplateSources (options) {
         if (options.phpmyadmin) {
             sources.push('.provision/scripts/phpmyadmin.sh');
         }
+        if (options.website==='html') {
+            sources.push('web/index.html');
+        }
     }
     if (options.bower) {
         sources.push(
