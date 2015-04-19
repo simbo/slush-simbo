@@ -10,4 +10,4 @@ echo "Updating npm... (please be patient)"
 npm install -g npm@latest
 
 echo "Installing global node packages... (please be patient)"
-#npm install -g gulp<% if (bower) { %> bower<% } %>
+npm install -g gulp<% if (bower) { %> bower<% } %>
