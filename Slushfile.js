@@ -371,7 +371,6 @@ function getTemplateSources (options) {
                 '.provision/scripts/php.sh',
                 '.provision/files/etc/php5/cli/conf.d/01-php.ini',
                 '.provision/files/etc/php5/fpm/conf.d/00-php.ini',
-                '.provision/files/etc/php5/fpm/conf.d/06-opcache.ini',
                 '.provision/files/etc/php5/fpm/pool.d/vagrant.conf'
             );
         }
