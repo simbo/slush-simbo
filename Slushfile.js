@@ -264,7 +264,9 @@ var prompts = [{
             return answers.vagrant;
         },
         message: 'Do you want to run ' + chalk.yellow('vagrant up') + ' after scaffolding?',
-        default: defaultOptions.vagrantUp
+        default: function (answers) {
+            return answers.vagrant ? true : defaultOptions.vagrantUp;
+        }
     }, {
         name: 'install',
         type: 'confirm',
@@ -342,12 +344,6 @@ function getTemplateSources (options) {
             '.provision/scripts/functions.sh',
             '.provision/scripts/node.sh'
         );
-        if (options.webserver==='apache') {
-            sources.push(
-                '.provision/scripts/apache.sh',
-                '.provision/files/etc/apache2/**/*'
-            );
-        }
         if (options.webserver==='nginx') {
             sources.push(
                 '.provision/scripts/nginx.sh',
@@ -360,6 +356,12 @@ function getTemplateSources (options) {
             if (options.phpmyadmin) {
                 sources.push('.provision/files/etc/nginx/conf.d/phpmyadmin.conf');
             }
+        }
+        else if (options.webserver==='apache') {
+            sources.push(
+                '.provision/scripts/apache.sh',
+                '.provision/files/etc/apache2/**/*'
+            );
         }
         if (options.database==='mysql') {
             sources.push('.provision/scripts/mysql.sh');
