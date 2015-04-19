@@ -22,10 +22,12 @@ apt-get -y -qq update
 apt-get -y -qq upgrade
 
 # scripts<% if (webserver==='nginx') { %>
-source $PROVISION_SCRIPTS/nginx.sh<% } %><% if (webserver==='apache') { %>
-source $PROVISION_SCRIPTS/apache.sh<% } %><% if (database==='mysql') { %>
-source $PROVISION_SCRIPTS/mysql.sh<% } %><% if (php) { %>
-source $PROVISION_SCRIPTS/php.sh<% } %>
+source $PROVISION_SCRIPTS/nginx.sh<% } else if (webserver==='apache') { %>
+source $PROVISION_SCRIPTS/apache.sh<% } if (database==='mysql') { %>
+source $PROVISION_SCRIPTS/mysql.sh<% } else if (database==='couchdb') { %>
+source $PROVISION_SCRIPTS/couchdb.sh<% } if (php) { %>
+source $PROVISION_SCRIPTS/php.sh<% } if (phpmyadmin) { %>
+source $PROVISION_SCRIPTS/phpmyadmin.sh<% } %>
 su vagrant -c "source $PROVISION_SCRIPTS/node.sh"
 
 # cleanup
