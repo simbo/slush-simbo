@@ -350,12 +350,6 @@ function getTemplateSources (options) {
                 '.provision/files/etc/nginx/nginx.conf',
                 '.provision/files/etc/nginx/sites-available/vagrant'
             );
-            if (options.php) {
-                sources.push('.provision/files/etc/nginx/conf.d/php.conf');
-            }
-            if (options.phpmyadmin) {
-                sources.push('.provision/files/etc/nginx/conf.d/phpmyadmin.conf');
-            }
         }
         else if (options.webserver==='apache') {
             sources.push(
@@ -373,9 +367,16 @@ function getTemplateSources (options) {
                 '.provision/files/etc/php5/fpm/conf.d/00-php.ini',
                 '.provision/files/etc/php5/fpm/pool.d/vagrant.conf'
             );
+            if (options.webserver==='nginx') {
+                sources.push('.provision/files/etc/nginx/conf.d/php.conf');
+            }
         }
         if (options.phpmyadmin) {
             sources.push('.provision/scripts/phpmyadmin.sh');
+            sources.push('.provision/files/etc/phpmyadmin/config.inc.php');
+            if (options.webserver==='nginx') {
+                sources.push('.provision/files/etc/nginx/conf.d/phpmyadmin.conf');
+            }
         }
         if (options.website==='html') {
             sources.push('web/index.html');
