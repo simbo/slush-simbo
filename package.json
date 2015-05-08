@@ -1,6 +1,6 @@
 {
   "name": "slush-simbo",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A Slush generator for web projects.",
   "author": "Simon Lepel <simbo@simbo.de> (http://simbo.ninja)",
   "keywords": [
