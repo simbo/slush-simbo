@@ -9,7 +9,9 @@ slush-simbo
 
   > A Slush generator for web projects.
 
+
 # WORK IN PROGRESS
+
 
 ### Usage
 
@@ -17,10 +19,12 @@ slush-simbo
 # install slush and the generator
 npm install -g slush slush-simbo
 
-# create a project directory and enter
+# create/enter your new project folder
 mkdir my-project
 cd my-project
 
 # start the generator
 slush simbo
 ```
+
+###
